@@ -99,12 +99,7 @@ class _landingmovielistState extends State<landingmovielist> {
           setState(() {
             searchkey=texts;
           });
-         /* Movie = List.from(widget.movielist.data.movies);
 
-         Movie = widget.movielist.data.movies
-              .where((string) => string.name.toLowerCase().contains(texts.toLowerCase()))
-              .toList();
-         print(Movie[0].description);*/
         },
       ),
     );
