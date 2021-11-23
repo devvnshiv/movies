@@ -7,5 +7,7 @@ enum _MovieEvent{
 Movielistevent,
 @Data(fields:[ DataField<dynamic>("params")])
 Moviedetailsevent,
+@Data(fields:[ DataField<dynamic>("params")])
+Search
 
 }

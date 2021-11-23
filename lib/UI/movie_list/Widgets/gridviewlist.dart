@@ -6,7 +6,7 @@ import 'package:quiz/UI/utils/Resposive.dart';
 import 'package:quiz/models/movielistmodel/movielistmodel.dart';
 
 class gridlist extends StatefulWidget {
- final  movie_list_model movielist;
+ final  List<Movies> movielist;
  final int index;
 
   const gridlist({Key key, this.movielist, this.index}) : super(key: key);
@@ -24,7 +24,7 @@ class _gridlistState extends State<gridlist> {
         onTap: () {
           BlocProvider.of<MovieBloc>(context).add(
               MovieEvent.moviedetailsevent(
-                  params: widget.movielist.data.movies[widget.index].id)
+                  params: widget.movielist[widget.index].id)
           );
         },
         child: Card(
@@ -47,17 +47,17 @@ class _gridlistState extends State<gridlist> {
                     child: AspectRatio(
                       aspectRatio: 1.2,
                       child: Image.network(
-                        widget.movielist.data.movies[widget.index].thumbnail,
+                        widget.movielist[widget.index].thumbnail,
                         filterQuality: FilterQuality.high,
                         fit: BoxFit.fill,
 
 
                       ),
                     )),
-                Text(widget.movielist.data.movies[widget.index].name,
+                Text(widget.movielist[widget.index].name,
                   style: TextStyle(fontSize: 2.9 * AppSizeConfig
                       .textMultiplier, fontWeight: FontWeight.bold),),
-                Text(widget.movielist.data.movies[widget.index].year,
+                Text(widget.movielist[widget.index].year,
                   style: TextStyle(fontSize: 1.9 * AppSizeConfig
                       .textMultiplier, fontWeight: FontWeight.bold),),
               ],

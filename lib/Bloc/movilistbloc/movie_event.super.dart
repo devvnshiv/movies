@@ -16,15 +16,20 @@ abstract class MovieEvent extends Equatable {
   factory MovieEvent.moviedetailsevent({@required dynamic params}) =
       Moviedetailsevent.create;
 
+  factory MovieEvent.search({@required dynamic params}) = Search.create;
+
   final _MovieEvent _type;
 
   /// The [when] method is the equivalent to pattern matching.
   /// Its prototype depends on the _MovieEvent [_type]s defined.
   R when<R extends Object>(
       {@required R Function() movielistevent,
-      @required R Function(Moviedetailsevent) moviedetailsevent}) {
+      @required R Function(Moviedetailsevent) moviedetailsevent,
+      @required R Function(Search) search}) {
     assert(() {
-      if (movielistevent == null || moviedetailsevent == null) {
+      if (movielistevent == null ||
+          moviedetailsevent == null ||
+          search == null) {
         throw 'check for all possible cases';
       }
       return true;
@@ -34,6 +39,8 @@ abstract class MovieEvent extends Equatable {
         return movielistevent();
       case _MovieEvent.Moviedetailsevent:
         return moviedetailsevent(this as Moviedetailsevent);
+      case _MovieEvent.Search:
+        return search(this as Search);
     }
   }
 
@@ -45,6 +52,7 @@ abstract class MovieEvent extends Equatable {
   R whenOrElse<R extends Object>(
       {R Function() movielistevent,
       R Function(Moviedetailsevent) moviedetailsevent,
+      R Function(Search) search,
       @required R Function(MovieEvent) orElse}) {
     assert(() {
       if (orElse == null) {
@@ -59,6 +67,9 @@ abstract class MovieEvent extends Equatable {
       case _MovieEvent.Moviedetailsevent:
         if (moviedetailsevent == null) break;
         return moviedetailsevent(this as Moviedetailsevent);
+      case _MovieEvent.Search:
+        if (search == null) break;
+        return search(this as Search);
     }
     return orElse(this);
   }
@@ -67,9 +78,12 @@ abstract class MovieEvent extends Equatable {
   /// but non-exhaustive.
   void whenPartial(
       {void Function() movielistevent,
-      void Function(Moviedetailsevent) moviedetailsevent}) {
+      void Function(Moviedetailsevent) moviedetailsevent,
+      void Function(Search) search}) {
     assert(() {
-      if (movielistevent == null && moviedetailsevent == null) {
+      if (movielistevent == null &&
+          moviedetailsevent == null &&
+          search == null) {
         throw 'provide at least one branch';
       }
       return true;
@@ -81,6 +95,9 @@ abstract class MovieEvent extends Equatable {
       case _MovieEvent.Moviedetailsevent:
         if (moviedetailsevent == null) break;
         return moviedetailsevent(this as Moviedetailsevent);
+      case _MovieEvent.Search:
+        if (search == null) break;
+        return search(this as Search);
     }
   }
 
@@ -132,6 +149,36 @@ class _MoviedetailseventImpl extends Moviedetailsevent {
       );
   @override
   String toString() => 'Moviedetailsevent(params: ${this.params})';
+  @override
+  List<Object> get props => [params];
+}
+
+@immutable
+abstract class Search extends MovieEvent {
+  const Search({@required this.params}) : super(_MovieEvent.Search);
+
+  factory Search.create({@required dynamic params}) = _SearchImpl;
+
+  final dynamic params;
+
+  /// Creates a copy of this Search but with the given fields
+  /// replaced with the new values.
+  Search copyWith({dynamic params});
+}
+
+@immutable
+class _SearchImpl extends Search {
+  const _SearchImpl({@required this.params}) : super(params: params);
+
+  @override
+  final dynamic params;
+
+  @override
+  _SearchImpl copyWith({Object params = superEnum}) => _SearchImpl(
+        params: params == superEnum ? this.params : params as dynamic,
+      );
+  @override
+  String toString() => 'Search(params: ${this.params})';
   @override
   List<Object> get props => [params];
 }

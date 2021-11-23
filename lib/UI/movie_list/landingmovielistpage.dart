@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:quiz/Bloc/movilistbloc/movie_bloc.dart';
+import 'package:quiz/Bloc/movilistbloc/movie_event.dart';
 import 'package:quiz/UI/movie_list/Widgets/gridviewlist.dart';
 import 'package:quiz/UI/utils/Resposive.dart';
 import 'package:quiz/models/movielistmodel/movielistmodel.dart';
 
 
 class landingmovielist extends StatefulWidget {
- final  movie_list_model movielist;
+ final  List<Movies> movielist;
 
   const landingmovielist({Key key, this.movielist}) : super(key: key);
 
@@ -17,10 +20,15 @@ class landingmovielist extends StatefulWidget {
 
 class _landingmovielistState extends State<landingmovielist> {
   final _scrollController = ScrollController();
-  @override
+ var Movie = List<Movies>();
+ var searchkey = "";
+
+
+ @override
   Widget build(BuildContext context) {
     return
    Scaffold(
+     appBar: AppBar(),
         body:
         OrientationBuilder(builder: (context, orientation) {
           return ListView(
@@ -29,6 +37,19 @@ class _landingmovielistState extends State<landingmovielist> {
                 child: Column(
 
                   children: [
+                    Row(
+                      children: [
+                        SizedBox(width: 5*AppSizeConfig.widthMultiplier,),
+                        Search(),
+                        IconButton(onPressed: (){
+                          BlocProvider.of<MovieBloc>(context).add(
+                            MovieEvent.search(params: searchkey),
+                          );
+                          
+                        }, icon:Icon(Icons.search), iconSize: 29,)
+                      ],
+                    ),
+
                     CustomScrollView(
                       shrinkWrap: true,
                       controller: _scrollController,
@@ -37,12 +58,12 @@ class _landingmovielistState extends State<landingmovielist> {
 
                               (context, index) {
                             return Container(
-                              height: 90 * AppSizeConfig.heightMultiplier,
+                              height: 85 * AppSizeConfig.heightMultiplier,
                               child: gridlist(
                                 movielist: widget.movielist, index: index,),
                             );
                           },
-                          childCount: widget.movielist.data.movies.length,
+                          childCount: widget.movielist.length,
 
                         ),
                           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -64,5 +85,30 @@ class _landingmovielistState extends State<landingmovielist> {
 
     );
   }
+
+  Search(){
+    return Container(
+      height: 10*AppSizeConfig.heightMultiplier,
+      width: 70*AppSizeConfig.widthMultiplier,
+      child: TextField(
+        decoration:  InputDecoration(
+
+          hintText: "search by name"
+        ),
+        onChanged: (texts){
+          setState(() {
+            searchkey=texts;
+          });
+         /* Movie = List.from(widget.movielist.data.movies);
+
+         Movie = widget.movielist.data.movies
+              .where((string) => string.name.toLowerCase().contains(texts.toLowerCase()))
+              .toList();
+         print(Movie[0].description);*/
+        },
+      ),
+    );
+  }
+
   }
 
