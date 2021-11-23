@@ -35,7 +35,7 @@ class AppSizeConfig {
       _screenWidth = constraints.maxWidth;
       _screenHeight = constraints.maxHeight;
       isPortrait = true;
-      if (_screenWidth < 450) {
+      if (_screenWidth < 350) {
         isMobilePortrait = true;
       }
     } else {
