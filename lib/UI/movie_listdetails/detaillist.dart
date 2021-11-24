@@ -5,6 +5,7 @@ import 'package:quiz/Bloc/movilistbloc/movie_event.dart';
 import 'package:quiz/UI/movie_listdetails/widgets/description.dart';
 import 'package:quiz/UI/movie_listdetails/widgets/detailscontiner.dart';
 import 'package:quiz/UI/movie_listdetails/widgets/imagecointainer.dart';
+import 'package:quiz/UI/utils/Resposive.dart';
 import 'package:quiz/models/movielistmodel/moviedetails_model.dart';
 
 
@@ -35,6 +36,7 @@ class _detaillistState extends State<detaillist> {
           child: Center(
             child: Column(
               children: [
+                SizedBox(height: 5*AppSizeConfig.heightMultiplier,),
                 imageconitiner(imagestring: widget.movieditals.data.movie.thumbnail,),
                 details(movieditals: widget.movieditals,),
                 descriptions(Des:  widget.movieditals.data.movie.description,)

@@ -13,13 +13,29 @@ final String imagestring;
 }
 
 class _imageconitinerState extends State<imageconitiner> {
+
+
+  String  convertString(String link){
+print("old:"+link);
+    String find = "/thumb/";
+    String replace ="/medium/";
+    String  newstring =  link.replaceAll(find,replace);
+    print(newstring);
+
+    return newstring;
+  }
+
+
+
+
   @override
   Widget build(BuildContext context) {
     return Container(
       height: 25*AppSizeConfig.heightMultiplier,
       width: 90*AppSizeConfig.widthMultiplier,
-      child:  Image.network(widget.imagestring, fit: BoxFit.fitHeight,
-
+      color: Colors.grey.shade200,
+      child:  Image.network(convertString(widget.imagestring), fit: BoxFit.fill,
+        height: 25*AppSizeConfig.heightMultiplier,
 
 
       ),

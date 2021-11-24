@@ -23,7 +23,7 @@ class _gridlistState extends State<gridlist> {
     String find = "/thumb/";
     String replace ="/medium/";
     String  newstring =  link.replaceAll(find,replace);
-    print(newstring);
+
     return newstring;
   }
 
