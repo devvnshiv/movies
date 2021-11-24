@@ -16,6 +16,17 @@ class gridlist extends StatefulWidget {
 }
 
 class _gridlistState extends State<gridlist> {
+
+
+  String  convertString(String link){
+
+    String find = "/thumb/";
+    String replace ="/medium/";
+    String  newstring =  link.replaceAll(find,replace);
+    print(newstring);
+    return newstring;
+  }
+
   @override
   Widget build(BuildContext context) {
     return
@@ -43,11 +54,12 @@ class _gridlistState extends State<gridlist> {
                 Container(
                     height: 20 * AppSizeConfig.heightMultiplier,
                     width: 55 * AppSizeConfig.widthMultiplier,
-
+color: Colors.grey,
                     child: AspectRatio(
                       aspectRatio: 1.2,
                       child: Image.network(
-                        widget.movielist[widget.index].thumbnail,
+                        convertString(
+                        widget.movielist[widget.index].thumbnail),
                         filterQuality: FilterQuality.high,
                         fit: BoxFit.fill,
 
