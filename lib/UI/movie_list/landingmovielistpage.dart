@@ -20,12 +20,18 @@ class landingmovielist extends StatefulWidget {
 
 class _landingmovielistState extends State<landingmovielist> {
   final _scrollController = ScrollController();
- var Movie = List<Movies>();
+List<Movies> movies;
  var searchkey = "";
-
+ @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    movies= List.from(widget.movielist);
+  }
 
  @override
   Widget build(BuildContext context) {
+  
     return
    Scaffold(
      appBar: AppBar(),
@@ -60,10 +66,10 @@ class _landingmovielistState extends State<landingmovielist> {
                             return Container(
                               height: 85 * AppSizeConfig.heightMultiplier,
                               child: gridlist(
-                                movielist: widget.movielist, index: index,),
+                                movielist:movies, index: index,),
                             );
                           },
-                          childCount: widget.movielist.length,
+                          childCount: movies.length,
 
                         ),
                           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -98,6 +104,12 @@ class _landingmovielistState extends State<landingmovielist> {
         onChanged: (texts){
           setState(() {
             searchkey=texts;
+            movies = widget.movielist
+                .where((list) =>
+                list.name.toLowerCase().contains(
+                    texts.toString().toLowerCase()))
+                .toList();
+
           });
 
         },
