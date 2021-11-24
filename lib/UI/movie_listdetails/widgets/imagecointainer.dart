@@ -31,13 +31,16 @@ print("old:"+link);
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 25*AppSizeConfig.heightMultiplier,
+      height: 29*AppSizeConfig.heightMultiplier,
       width: 90*AppSizeConfig.widthMultiplier,
       color: Colors.grey.shade200,
-      child:  Image.network(convertString(widget.imagestring), fit: BoxFit.fill,
-        height: 25*AppSizeConfig.heightMultiplier,
+      child:  AspectRatio(
+        aspectRatio: 0.8,
+        child: Image.network(convertString(widget.imagestring), fit: BoxFit.fill,
 
 
+
+        ),
       ),
     );
   }
